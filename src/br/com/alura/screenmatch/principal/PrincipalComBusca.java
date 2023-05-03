@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -19,26 +21,36 @@ public class PrincipalComBusca {
         Scanner leitura = new Scanner(System.in);
         System.out.println("Digite um filme para busca:");
         var busca = leitura.nextLine();
+        String baseUrl = "http://www.omdbapi.com/?t=";
+        String apiKey = "&apikey=8c83e615";
+        URL url = new URL(baseUrl + URLEncoder.encode(busca, "UTF-8") + apiKey);
 
-        String endereco = "http://www.omdbapi.com/?t=" + busca + "&apikey=8c83e615";
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(String.valueOf(url)))
+                    .build();
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            String json = response.body();
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(endereco))
-                .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-        String json = response.body();
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                    .create();
+            TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
+            System.out.println(meuTituloOmdb);
 
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .create();
-        TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
-        System.out.println(meuTituloOmdb);
-        Titulo meuTitulo = new Titulo(meuTituloOmdb);
-        System.out.println("Titulo convertido");
-        System.out.println(meuTitulo);
+            Titulo meuTitulo = new Titulo(meuTituloOmdb);
+            System.out.println("Titulo convertido");
+            System.out.println(meuTitulo);
+        } catch (NumberFormatException e) {
+            System.out.println("Aconteceu um erro: ");
+            System.out.println("Mensagem de Erro: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro de argumento. verifique o endereço digitado.");
+            System.out.println("Mensagem de Erro: " + e.getMessage());
+        }
 
     }
 }
