@@ -21,8 +21,9 @@ public class PrincipalComBusca {
         Scanner leitura = new Scanner(System.in);
         System.out.println("Digite um filme para busca:");
         var busca = leitura.nextLine();
-        String baseUrl = "http://www.omdbapi.com/?t=";
-        String apiKey = "&apikey=8c83e615";
+
+        String baseUrl = System.getenv("OMDB_BASE_URL");
+        String apiKey = System.getenv("OMDB_API_KEY");
         URL url = new URL(baseUrl + URLEncoder.encode(busca, "UTF-8") + apiKey);
 
         try {
