@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43aa8f79-1861-440a-8eea-15671a3064e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/br/com/alura/screenmatch/excecao/AnoInvalidoException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/alura/screenmatch/modelos/Titulo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/alura/screenmatch/modelos/Titulo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/alura/screenmatch/modelos/TituloOmdb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/alura/screenmatch/modelos/TituloOmdb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/alura/screenmatch/principal/PrincipalComBusca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/alura/screenmatch/principal/PrincipalComBusca.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

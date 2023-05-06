@@ -1,6 +1,5 @@
 package br.com.alura.screenmatch.principal;
 
-import br.com.alura.screenmatch.excecao.AnoInvalidoException;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOmdb;
 import com.google.gson.FieldNamingPolicy;
@@ -14,6 +13,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class PrincipalComBusca {
@@ -25,7 +25,7 @@ public class PrincipalComBusca {
 
         String baseUrl = System.getenv("OMDB_BASE_URL");
         String apiKey = System.getenv("OMDB_API_KEY");
-        URL url = new URL(baseUrl + URLEncoder.encode(busca, "UTF-8") + apiKey);
+        URL url = new URL(baseUrl + URLEncoder.encode(busca, StandardCharsets.UTF_8) + apiKey);
 
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -41,22 +41,28 @@ public class PrincipalComBusca {
                     .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                     .create();
             TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
-            System.out.println(meuTituloOmdb);
 
-            Titulo meuTitulo = new Titulo(meuTituloOmdb);
-            if (meuTitulo.getAnoDeLancamento() != 4) {
-                meuTitulo.setAnoDeLancamento(1900);
+            if(meuTituloOmdb.getResponse().equals("True")) {
+                if(meuTituloOmdb.getYear().length() != 4) {
+                    TituloOmdb novoTituloOmdb = new TituloOmdb(meuTituloOmdb.getTitle(), "N/A", meuTituloOmdb.getRuntime(), meuTituloOmdb.getResponse());
+                    novoTituloOmdb.setRuntime(novoTituloOmdb.getRuntime());
+                    System.out.println("Titulo convertido");
+                    System.out.println("Atenção: ano de lançamento inválido na base de dados");
+                    System.out.println(novoTituloOmdb);
+                } else {
+                    Titulo meuTitulo = new Titulo(meuTituloOmdb);
+                    System.out.println("Titulo convertido");
+                    System.out.println(meuTitulo);
+                }
             }
-            System.out.println("Titulo convertido");
-            System.out.println(meuTitulo);
         } catch (NumberFormatException e) {
             System.out.println("Aconteceu um erro: ");
             System.out.println("Mensagem de Erro: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println("Erro de argumento. Verifique o endereço digitado.");
             System.out.println("Mensagem de Erro: " + e.getMessage());
-        }  catch (AnoInvalidoException e) {
-            System.out.println(e.getMessage());
+//        }  catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
         }
 
     }

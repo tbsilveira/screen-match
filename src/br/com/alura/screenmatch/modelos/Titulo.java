@@ -1,7 +1,5 @@
 package br.com.alura.screenmatch.modelos;
 
-import br.com.alura.screenmatch.excecao.AnoInvalidoException;
-
 public class Titulo implements Comparable<Titulo> {
     private String nome;
     private int anoDeLancamento;
@@ -16,12 +14,9 @@ public class Titulo implements Comparable<Titulo> {
     }
 
     public Titulo(TituloOmdb meuTituloOmdb) {
-        this.nome = meuTituloOmdb.title();
-        if (meuTituloOmdb.year().length() != 4) {
-            throw new AnoInvalidoException("Erro: base de dados com ano inválido.");
-        }
-        this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
-        this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().replace(" min", ""));
+        this.nome = meuTituloOmdb.getTitle();
+        this.anoDeLancamento = Integer.parseInt(meuTituloOmdb.getYear());
+        this.duracaoEmMinutos = Integer.parseInt(meuTituloOmdb.getRuntime().replace(" min", ""));
     }
 
     public void exibeFichaTecnica(){
