@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.excecao.AnoInvalidoException;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOmdb;
 import com.google.gson.FieldNamingPolicy;
@@ -43,14 +44,19 @@ public class PrincipalComBusca {
             System.out.println(meuTituloOmdb);
 
             Titulo meuTitulo = new Titulo(meuTituloOmdb);
+            if (meuTitulo.getAnoDeLancamento() != 4) {
+                meuTitulo.setAnoDeLancamento(1900);
+            }
             System.out.println("Titulo convertido");
             System.out.println(meuTitulo);
         } catch (NumberFormatException e) {
             System.out.println("Aconteceu um erro: ");
             System.out.println("Mensagem de Erro: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            System.out.println("Erro de argumento. verifique o endereço digitado.");
+            System.out.println("Erro de argumento. Verifique o endereço digitado.");
             System.out.println("Mensagem de Erro: " + e.getMessage());
+        }  catch (AnoInvalidoException e) {
+            System.out.println(e.getMessage());
         }
 
     }
