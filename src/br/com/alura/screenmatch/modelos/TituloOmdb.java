@@ -13,7 +13,7 @@ public class TituloOmdb {
         this.response = response;
     }
 
-    public String anoDeLancamentoConvertido() {
+    public String duracaoEmMinutosAjustada() {
         return runtime.replace(" min", "");
     }
 
@@ -34,7 +34,7 @@ public class TituloOmdb {
     }
 
     public void setRuntime(String runtime) {
-        this.runtime = anoDeLancamentoConvertido();
+        this.runtime = duracaoEmMinutosAjustada();
     }
 
     @Override
