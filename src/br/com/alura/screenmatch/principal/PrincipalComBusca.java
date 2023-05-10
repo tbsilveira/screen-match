@@ -44,20 +44,23 @@ public class PrincipalComBusca {
 
             if(meuTituloOmdb.getResponse().equals("True")) {
                 if(meuTituloOmdb.getYear().length() != 4) {
-                    TituloOmdb novoTituloOmdb = new TituloOmdb(meuTituloOmdb.getTitle(), "N/A", meuTituloOmdb.getRuntime(), meuTituloOmdb.getResponse());
-                    novoTituloOmdb.setRuntime(novoTituloOmdb.getRuntime());
-                    System.out.println("Titulo convertido");
-                    System.out.println("Atenção: ano de lançamento inválido na base de dados");
-                    System.out.println(novoTituloOmdb);
-                } else {
-                    Titulo meuTitulo = new Titulo(meuTituloOmdb);
-                    System.out.println("Titulo convertido");
-                    System.out.println(meuTitulo);
+                    meuTituloOmdb.setYear(String.valueOf(1900));
+                    System.out.println("## Atenção: Ano de lançamento inválido na base de dados ##");
                 }
+
+                String regex = "[a-zA-Z]";
+                if(meuTituloOmdb.getRuntime().substring(0,1).matches(regex)){
+                    meuTituloOmdb.setRuntime(String.valueOf(1));
+                    System.out.println("## Atenção: Duração em minutos inválida na base de dados ##");
+                }
+
+                Titulo meuTitulo = new Titulo(meuTituloOmdb);
+                System.out.println("Titulo convertido:");
+                System.out.println(meuTitulo);
+
             }
         } catch (NumberFormatException e) {
-            System.out.println("Aconteceu um erro: ");
-            System.out.println("Mensagem de Erro: " + e.getMessage());
+            System.out.println("Aconteceu um erro: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println("Erro de argumento. Verifique o endereço digitado.");
             System.out.println("Mensagem de Erro: " + e.getMessage());

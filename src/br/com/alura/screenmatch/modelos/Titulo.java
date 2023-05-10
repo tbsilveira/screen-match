@@ -8,6 +8,7 @@ public class Titulo implements Comparable<Titulo> {
     private int totalDeAvaliacoes;
     private int duracaoEmMinutos;
 
+
     public Titulo(String nome, int anoDeLancamento) {
         this.nome = nome;
         this.anoDeLancamento = anoDeLancamento;
@@ -16,7 +17,7 @@ public class Titulo implements Comparable<Titulo> {
     public Titulo(TituloOmdb meuTituloOmdb) {
         this.nome = meuTituloOmdb.getTitle();
         this.anoDeLancamento = Integer.parseInt(meuTituloOmdb.getYear());
-        this.duracaoEmMinutos = Integer.parseInt(meuTituloOmdb.getRuntime().replace(" min", ""));
+        this.duracaoEmMinutos = Integer.parseInt(meuTituloOmdb.duracaoEmMinutosAjustada());
     }
 
     public void exibeFichaTecnica(){

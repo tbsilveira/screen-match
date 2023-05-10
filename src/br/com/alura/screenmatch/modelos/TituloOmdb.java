@@ -14,7 +14,7 @@ public class TituloOmdb {
     }
 
     public String duracaoEmMinutosAjustada() {
-        return runtime.replace(" min", "");
+        return getRuntime().replace(" min", "");
     }
 
     public String getTitle() {
@@ -23,6 +23,10 @@ public class TituloOmdb {
 
     public String getYear() {
         return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getRuntime() {
@@ -34,14 +38,7 @@ public class TituloOmdb {
     }
 
     public void setRuntime(String runtime) {
-        this.runtime = duracaoEmMinutosAjustada();
-    }
-
-    @Override
-    public String toString() {
-        return "Título = " + title +
-                ", Ano de Lançamento = " + year +
-                ", Duração em minutos = " + runtime;
+        this.runtime = runtime;
     }
 
 }
