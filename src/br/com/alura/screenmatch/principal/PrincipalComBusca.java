@@ -55,7 +55,7 @@ public class PrincipalComBusca {
                         .send(request, HttpResponse.BodyHandlers.ofString());
                 System.out.println(response.body());
                 String json = response.body();
-
+                
                 TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
 
                 if(meuTituloOmdb.getResponse().equals("True")) {
