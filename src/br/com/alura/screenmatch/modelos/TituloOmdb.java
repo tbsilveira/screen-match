@@ -17,6 +17,21 @@ public class TituloOmdb {
         return getRuntime().replace(" min", "");
     }
 
+    public void validaAnoDeLancamento(String year){
+        if(this.getYear().length() != 4) {
+            this.setYear(String.valueOf(1900));
+            System.out.println("## Atenção: Ano de lançamento inválido na base de dados ##");
+        }
+    }
+
+    public void validaDuracaoEmMinutos(String runtime) {
+        String regex = "[a-zA-Z]";
+        if(this.getRuntime().substring(0,1).matches(regex)){
+            this.setRuntime(String.valueOf(1));
+            System.out.println("## Atenção: Duração em minutos inválida na base de dados ##");
+        }
+    }
+
     public String getTitle() {
         return title;
     }
